@@ -26,7 +26,9 @@ object MapReduceAlgorithms {
 
   def getAddresses(data:List[(Int,(String, String, String))]):List[String]= {
       mapReduce[Int, (String, String, String), String, Int, List[String], Int](
-        x => List((x._2._2, x._1)))
+        kv => List((kv._2._2, -1)),
+        kv => List((List(kv._1), -1)).map(_._1)
+      )
   }
 
   /*
